@@ -106,17 +106,6 @@ public class OslcOAuthClient extends OslcClient {
 		String authHeader = message.getAuthorizationHeader(realm);
 
 		ClientConfig config = getClientConfig();
-
-		javax.ws.rs.core.Application app = new javax.ws.rs.core.Application() {
-		       public Set<Class<?>> getClasses() {
-		           Set<Class<?>> classes = new HashSet<Class<?>>();
-		           classes.addAll(JenaProvidersRegistry.getProviders());
-
-		           return classes;
-		       }
-		};
-		config = config.applications(app);
-
 		RestClient restClient = new RestClient(config);
 
 		return restClient.resource(url).accept(mediaType).header("Authorization",authHeader).header("OSLC-Core-Version", "2.0").get();
